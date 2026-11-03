@@ -2,7 +2,7 @@ prod:
 
 ```bash
 # install
-git submodule add -b based --depth=1 https://github.com/nozsh/papermod.git themes/PaperMod
+git submodule add -b based https://github.com/nozsh/papermod.git themes/PaperMod
 ```
 
 ```bash
