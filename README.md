@@ -1,3 +1,8 @@
+> [!CAUTION]
+> **This is HEAVILY modified PaperMod ver I made specifically for myself; it probably won't work for you as is.**
+
+---
+
 prod:
 
 ```bash
