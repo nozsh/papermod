@@ -1,5 +1,6 @@
 > [!CAUTION]
-> **This is HEAVILY modified PaperMod ver I made specifically for myself; it probably won't work for you as is.**
+> **This is HEAVILY modified PaperMod ver I made specifically for myself.**
+> **It probably won't work for you as is.**
 
 ---
 
