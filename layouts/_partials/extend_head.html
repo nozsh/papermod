@@ -12,6 +12,48 @@
 {{- $yt = $yt | resources.Concat "assets/css/lite-yt-embed.css" | resources.Minify }}
 {{- partial "utils/assetTag.html" (dict "res" $yt "deferred" true) }}
 
+{{/* Afterlife */}}
+<script>
+  (function () {
+    var mirrors = ['hv7.pages.dev', 'hv8.pages.dev'];
+    if (mirrors.indexOf(location.hostname) === -1) return;
+
+    var MAIN = 'https://nzsh.cc';
+    var CDN = 'https://cdn.nzsh.cc/';
+    var CDN_FALLBACK = 'https://nzsh-cdn-like.pages.dev/';
+
+    document.addEventListener('error', function (e) {
+      var el = e.target;
+      if (!el || !el.tagName || (el.dataset && el.dataset.cdnFb)) return;
+      var attr = el.tagName === 'IMG' ? 'src' : (el.tagName === 'LINK' ? 'href' : '');
+      if (!attr) return;
+      var url = el[attr];
+      if (typeof url === 'string' && url.indexOf(CDN) === 0) {
+        el.dataset.cdnFb = '1';
+        el[attr] = CDN_FALLBACK + url.slice(CDN.length);
+      }
+    }, true);
+
+    var target = MAIN + location.pathname + location.search + location.hash;
+    var ctrl = new AbortController();
+    var timer = setTimeout(function () { ctrl.abort(); }, 3000);
+
+    fetch(MAIN + '/fav/favicon.ico?' + Date.now(), {
+      method: 'HEAD',
+      mode: 'cors',
+      cache: 'no-store',
+      referrerPolicy: 'no-referrer',
+      signal: ctrl.signal
+    }).then(function (r) {
+      clearTimeout(timer);
+      if (r.ok) location.replace(target);
+    }).catch(function () {
+      clearTimeout(timer);
+      console.debug('[mirror] main domain unreachable, stay on mirror');
+    });
+  })();
+</script>
+
 {{/* Math */}}
 {{- if .Params.math }}
   {{- partial "math.html" . }}
