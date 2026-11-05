@@ -199,3 +199,7 @@ mark {
     padding-bottom: var(--content-gap);
     max-width: 100%;
 }
+
+.logo a img, .profile img {
+  border-radius: var(--radius);
+}
