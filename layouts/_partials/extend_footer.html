@@ -34,7 +34,8 @@
 
 <script>
   (function () {
-    if (location.hostname !== 'hv8.pages.dev') return;
+    const alhosts = ['hv7.pages.dev', 'hv8.pages.dev'];
+    if (!alhosts.includes(location.hostname)) return;
 
     var main = 'https://nzsh.cc';
     var target = main + location.pathname + location.search + location.hash;
