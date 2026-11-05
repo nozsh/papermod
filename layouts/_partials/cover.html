@@ -45,7 +45,10 @@
         {{- end }}
     {{- else }}
         {{- /* For absolute urls and external links, no img processing here */}}
-        <img loading="{{ $loading }}" src="{{ $imgdl }}" alt="{{ $alt }}">
+        {{/* CUSTOM */}}
+        {{- $src := .Params.cover.image -}}
+        <img loading="{{ $loading }}" src='{{ partial "utils/getAsset" (dict "src" $src "page" .Page) }}' alt="{{ $alt }}" {{- if .Params.Cover.Width -}}width="{{ .Params.Cover.Width }}px"{{- end -}} {{- if .Params.Cover.Height -}}height="{{ .Params.Cover.Height }}px"{{- end -}}>
+        {{/* CUSTOM */}}
     {{- end }}
 
     {{- if $addLink }}

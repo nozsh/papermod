@@ -1,0 +1,44 @@
+{{- define "llms_headings" -}}
+{{- $page := .page -}}
+{{- $depth := .depth -}}
+{{- range .headings }}
+{{- if .Title }}
+{{ strings.Repeat $depth "  " }}- [{{ .Title | plainify }}]({{ $page.Permalink }}#{{ .ID }})
+{{- template "llms_headings" (dict "headings" .Headings "page" $page "depth" (add $depth 1)) }}
+{{- else }}
+{{- template "llms_headings" (dict "headings" .Headings "page" $page "depth" $depth) }}
+{{- end }}
+{{- end }}
+{{- end -}}
+
+# {{ .Site.Title }}
+
+{{ with .Site.Params.description -}}
+> {{ . }}
+{{- end }}
+
+{{- range .Site.Sections }}
+{{- $pages := where (where .RegularPagesRecursive "Params.robotsNoIndex" "ne" true) "Layout" "not in" (slice "archives" "search") }}
+{{- if $pages }}
+
+## {{ .Title }}
+{{- range $pages }}
+
+### [{{ .Title }}]({{ .Permalink }})
+{{- with .Description }}
+
+{{ . | plainify | chomp }}
+{{- end }}
+{{- if site.Params.llmsFullContent }}
+
+{{ .Plain | chomp }}
+{{- else }}
+{{ template "llms_headings" (dict "headings" .Fragments.Headings "page" . "depth" 0) }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+---
+Generated on {{ now.UTC.Format "2006-01-02 15:04:05" }} UTC
+Site: {{ .Site.Home.Permalink }}

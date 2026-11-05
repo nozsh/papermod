@@ -1,0 +1,48 @@
+{{- $url := cond .IsNamedParams (.Get "url") (.Get 0) -}}
+{{- $lang := cond .IsNamedParams (.Get "lang") (.Get 1) | default "" -}}
+{{- $title := .Get "title" -}}
+
+{{- $isOpen := cond .IsNamedParams (eq (.Get "open") true) (in .Params "open") -}}
+
+{{- $rawUrl := $url -}}
+{{- if in $url "github.com" -}}
+  {{- $rawUrl = replace $url "github.com" "raw.githubusercontent.com" -}}
+  {{- $rawUrl = replace $rawUrl "/blob/" "/" -}}
+{{- else if in $url "gitlab.com" -}}
+  {{- $rawUrl = replace $rawUrl "/blob/" "/raw/" -}}
+{{- end -}}
+
+{{- $filename := path.Base $url -}}
+{{- $summary := $title | default $filename -}}
+
+{{- $defaultExclude := slice "blob" "main" "nozsh" -}}
+{{- $excludeList := $defaultExclude -}}
+{{- with .Get "exclude" -}}
+  {{- $excludeList = $defaultExclude | union (split . ",") -}}
+{{- end -}}
+
+{{- $displayPath := replaceRE `^https?://[^/]+/?` "" $url -}}
+
+{{- $segments := split $displayPath "/" -}}
+{{- $filtered := slice -}}
+{{- range $segments -}}
+  {{- if not (in $excludeList .) -}}
+    {{- $filtered = $filtered | append . -}}
+  {{- end -}}
+{{- end -}}
+{{- $displayPath = delimit $filtered "/" -}}
+
+<div class="remote-code-wrapper">
+  <details class="a-details remote-code-details" {{ if $isOpen }}open{{ end }}>
+    <summary>
+      <span class="remote-code-title">{{ $summary }}</span>
+      <span class="remote-code-lang">{{ $lang }}</span>
+    </summary>
+    <div class="remote-code-body">
+      <div class="highlight">
+        <pre><code class="remote-code-block{{ if $lang }} language-{{ $lang }}{{ end }}" data-src="{{ $rawUrl }}">Loading file...</code></pre>
+      </div>
+    </div>
+  </details>
+  <a class="remote-code-source" href="{{ $url }}" target="_blank" rel="noopener noreferrer nofollow">{{ $displayPath }}</a>
+</div>

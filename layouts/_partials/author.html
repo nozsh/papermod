@@ -1,10 +1,27 @@
 {{- if or .Params.author site.Params.author }}
     {{- $author := (.Params.author | default site.Params.author) }}
+    {{- $author_urls := .Params.authorURL }}
     {{- $author_type := (printf "%T" $author) }}
 
     {{- if (or (eq $author_type "[]string") (eq $author_type "[]interface {}")) }}
-        {{- (delimit $author ", " ) }}
+        {{- $author_links := slice }}
+        {{- range $index, $author_name := $author }}
+            {{- $author_url := "" }}
+            {{- if and (reflect.IsSlice $author_urls) (gt (len $author_urls) $index) }}
+                {{- $author_url = index $author_urls $index }}
+            {{- end }}
+            {{- if $author_url }}
+                {{- $author_links = $author_links | append (printf `<a class="author-link" href="%s">%s</a>` (string $author_url | htmlEscape) ($author_name | htmlEscape)) }}
+            {{- else }}
+                {{- $author_links = $author_links | append ($author_name | htmlEscape) }}
+            {{- end }}
+        {{- end }}
+        {{- delimit $author_links ",&nbsp;" | safeHTML }}
     {{- else }}
-        {{- $author }}
+        {{- with $author_urls }}
+            <a class="author-link" href="{{ . }}">{{ $author }}</a>
+        {{- else }}
+            {{- $author }}
+        {{- end }}
     {{- end }}
 {{- end -}}

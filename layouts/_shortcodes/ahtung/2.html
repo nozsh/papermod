@@ -1,0 +1,48 @@
+{{ $lang := .Page.Language.Lang }}
+
+<div class="kg-card kg-callout-card kg-callout-card-warn">
+  <div class="kg-callout-emoji">🚧</div>
+  <div class="kg-callout-text">
+    {{ if eq $lang "en" }}
+      <strong>
+        All the material presented is purely humorous, satirical, and/or parodic in nature.
+      </strong>
+      <br><br>
+      <strong>
+        Any mentions of people, organizations, events, or phenomena are fictional, exaggerated, or used in a joking context. Any resemblance to real events or persons is accidental or part of the author's irony.
+      </strong>
+      <br><br>
+      <strong>
+        The material contains no real calls to action, does not reflect the authors actual views, and is not meant to be taken literally.
+      </strong>
+      <br><br>
+      <strong>
+        If you find anything in the text that might seem offensive, absurd, or provocative, remember — it’s artistic exaggeration, satire, and irony, and should not be taken literally.
+      </strong>
+      <br><br>
+      <strong>
+        Do not take this material seriously!
+      </strong>
+    {{ else }}
+      <strong>
+        Весь представленный материал носит исключительно юмористический, сатирический и/или пародийный характер.
+      </strong>
+      <br><br>
+      <strong>
+        Любые упоминания лиц, организаций, событий и явлений являются вымышленными, гиперболизированными или используются в шутливом контексте. Любое совпадение с реальными событиями или личностями случайно или является частью авторской иронии.
+      </strong>
+      <br><br>
+      <strong>
+        Материал не содержит реальных призывов к действию, не отражает реального мнения авторов и не предназначен для восприятия в буквальном смысле.
+      </strong>
+      <br><br>
+      <strong>
+        Если в тексте вы нашли что-то, что может показаться оскорбительным, абсурдным или провокационным, помните — это художественное преувеличение, сатира и ирония и не должно восприниматься буквально.
+      </strong>
+      <br><br>
+      <strong>
+        Не воспринимайте данный материал всерьез!
+      </strong>
+    {{ end }}
+  </div>
+</div>

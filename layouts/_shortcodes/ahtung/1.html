@@ -1,0 +1,54 @@
+{{ $lang := .Page.Language.Lang }}
+
+<div class="kg-card kg-callout-card kg-callout-card-warn">
+  <div class="kg-callout-emoji">🚧</div>
+  <div class="kg-callout-text">
+    {{ if eq $lang "en" }}
+      <strong>
+        This material is provided solely for educational and research purposes.
+      </strong>
+      <br><br>
+      <strong>
+        It does not contain any calls to action that would violate the law.
+      </strong>
+      <br><br>
+      <strong>
+        Author(s) bear no responsibility for any consequences resulting from the use of the information presented.
+      </strong>
+      <strong>
+        Use or application of the provided information is done at your own risk.
+      </strong>
+      <br><br>
+      <strong>
+        Information is provided exclusively for lawful study and analysis. Any use of the described methods for unauthorized access to data or systems is illegal and strictly prohibited.
+      </strong>
+      <br><br>
+      <strong>
+        Any use of this material for illegal purposes violates the law and is not endorsed by the authors.
+      </strong>
+    {{ else }}
+      <strong>
+        Настоящий материал подготовлен исключительно в образовательных и исследовательских целях.
+      </strong>
+      <br><br>
+      <strong>
+        Он не содержит призывов к каким-либо действиям, нарушающим законодательство.
+      </strong>
+      <br><br>
+      <strong>
+        Автор(ы) не несут ответственности за последствия использования изложенной информации. 
+      </strong>
+      <strong>
+        Использование/применение представленных сведений осуществляется на ваш страх и риск.
+      </strong>
+      <br><br>
+      <strong>
+        Информация предоставляется исключительно для законного изучения и анализа. Любое использование описанных методов для несанкционированного доступа к данным или системам является незаконным и строго запрещено.
+      </strong>
+      <br><br>
+      <strong>
+        Любое использование материала в незаконных целях нарушает закон и не одобряется авторами.
+      </strong>
+    {{ end }}
+  </div>
+</div>

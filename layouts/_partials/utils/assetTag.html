@@ -1,0 +1,27 @@
+{{- /*
+  Output HTML tag for CSS or JS resource. Type is detected from media type.
+  Adds fingerprint unless disabled in site config.
+  Args: res (required), deferred (optional, default false)
+    deferred = true:
+      JS  -> script with defer
+      CSS -> non-blocking preload trick
+    deferred = false:
+      JS  -> plain script
+      CSS -> plain stylesheet link
+*/ -}}
+{{- $r := .res -}}
+{{- if not site.Params.assets.disableFingerprinting }}{{ $r = $r | fingerprint }}{{ end -}}
+{{- $integrity := "" }}{{ with $r.Data.Integrity }}{{ $integrity = printf ` integrity="%s"` . }}{{ end -}}
+{{- $type := $r.MediaType.SubType -}}
+
+{{- if eq $type "css" -}}
+  {{- if .deferred -}}
+<link rel="preload" as="style" onload="this.rel='stylesheet'" crossorigin="anonymous" href="{{ $r.RelPermalink }}"{{ $integrity | safeHTMLAttr }}>
+  {{- else -}}
+<link rel="stylesheet" crossorigin="anonymous" href="{{ $r.RelPermalink }}"{{ $integrity | safeHTMLAttr }}>
+  {{- end -}}
+{{- else if eq $type "javascript" -}}
+<script {{ if .deferred }}defer {{ end }}crossorigin="anonymous" src="{{ $r.RelPermalink }}"{{ $integrity | safeHTMLAttr }}></script>
+{{- else -}}
+  {{- errorf "assetTag: unsupported media type %q for %s" $type $r.Name -}}
+{{- end }}

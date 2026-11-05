@@ -1,5 +1,11 @@
 {{- $u := urls.Parse .Destination -}}
+
+{{/*  CUSTOM  */}}
 {{- $src := $u.String -}}
+{{- $src = partial "utils/getAsset" (dict "src" $src "page" .Page)  -}}
+{{/*  CUSTOM  */}}
+
+{{/*- $src := $u.String -*/}}
 {{- if not $u.IsAbs -}}
   {{- $path := strings.TrimPrefix "./" $u.Path }}
   {{- with or (.PageInner.Resources.Get $path) (resources.Get $path) -}}

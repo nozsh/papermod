@@ -31,7 +31,7 @@
     font-size: 12px;
 }
 
-.md-content a:not(.anchor) {
+.md-content :where(a:not(.anchor)) {
     text-underline-offset: 0.3rem;
     text-decoration: underline;
 }

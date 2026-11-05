@@ -1,0 +1,23 @@
+{{/* XMAS */}}
+{{- if (.Param "xmas") }}
+  <style>
+    .xny-bg { animation: 1s xnyBgAnim; opacity: 0.3; }
+    @keyframes xnyBgAnim { from { opacity: 0; } to { opacity: 0.3; } }
+    .kg-callout-card, #searchbox, article.first-entry, details.a-details,
+    .embed-post-card, .references-card { backdrop-filter: blur(6px); }
+  </style>
+  <script>
+    const xnySettings = {
+      bgUrl: '{{- partial "utils/getAssetFree" "img/loose/new-year-bg-light.svg" -}}',
+      maxFlakes: 12,
+      funIcons: ["⛄", "🎁", "🦌", "☃", "🍪"], // (❄️≧◡≦❄️)
+      funChance: 0.025,      // higher = more fun
+      speed1: 8000,          // lower = faster
+      speed2: 10000,         // lower = faster
+      life: 100,             // higher = faster
+      initialOpacity: 0.2,   // opacity on spawn
+      opacityThreshold: 0.5, // opacity where flake starts to fade
+    };
+  </script>
+  <script defer src='{{- partial "utils/getAssetFree" "js/loose/xmas.min.js" -}}?v={{ time.Now.Unix }}'></script>
+{{- end }}

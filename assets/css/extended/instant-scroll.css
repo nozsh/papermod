@@ -1,0 +1,26 @@
+html {
+  scroll-behavior: auto;
+}
+
+:target {
+  scroll-margin-top: calc(var(--gap) * 9);
+}
+
+@media (min-width: 768px) {
+  :target {
+    scroll-margin-top: calc(var(--gap) * 4);
+  }
+}
+
+h2:target,
+h3:target,
+h4:target,
+h5:target,
+h6:target {
+  animation: highlight 1.5s ease-out;
+}
+
+@keyframes highlight {
+  0% { color: var(--accent); }
+  100% { color: var(--primary); }
+}

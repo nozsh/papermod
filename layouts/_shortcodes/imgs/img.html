@@ -1,0 +1,25 @@
+{{ $loading := .Get "loading" | default "lazy" }}
+{{ $notp := .Get "notp" | default false }}
+{{ $alt := .Get "alt" | default (printf "%s - Image" .Page.Title) }}
+{{ $caption := .Get "caption" }}
+
+{{ if and (not $notp) (eq $caption "") }}
+<p>
+{{ end }}
+
+{{ if $caption }}
+<figure>
+{{ end }}
+
+  <img loading="{{ $loading }}" alt='{{ $alt }}' width='{{ .Get "width" }}' height='{{ .Get "height" }}' src='{{ partial "utils/getAsset" (dict "src" (.Get "src") "page" .Page) }}'>
+  {{ if $caption }}
+    <figcaption>{{.Get "caption" | markdownify}}</figcaption>
+  {{ end }}
+
+{{ if $caption }}
+</figure>
+{{ end }}
+
+{{ if and (not $notp) (eq $caption "") }}
+</p>
+{{ end }}

@@ -1,0 +1,3 @@
+{{- $base := site.Params.Assets.looseAssetsURL | default "" -}}
+{{- $path := . -}}
+{{- return (urls.JoinPath $base $path) -}}

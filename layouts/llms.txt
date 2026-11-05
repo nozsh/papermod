@@ -1,41 +1,49 @@
-{{- /* Recursive printer for sections */ -}}
 {{- define "llms_print_section" -}}
 {{- $section := .section -}}
 {{- $depth := .depth -}}
-{{- if or (gt (len $section.RegularPages) 0) (gt (len $section.Sections) 0) -}}
-{{- $hashes := strings.Repeat (add $depth 1) "#" }}
+{{- $visible := where (where $section.RegularPagesRecursive "Params.robotsNoIndex" "ne" true) "Layout" "not in" (slice "archives" "search") -}}
+{{- if $visible }}
 
-{{ printf "%s %s" $hashes $section.Title }}
-
-{{- /* Pages in this section */ -}}
-{{- range $p := $section.RegularPages }}
-  {{- if and (not $p.Params.searchHidden) (ne $p.Layout `archives`) (ne $p.Layout `search`) }}
-- [{{ $p.Title }}]({{ $p.Permalink }})
-  {{- end -}}
-{{- end -}}
-
-{{- /* Recurse into subsections */ -}}
-{{- range $s := $section.Sections -}}
-{{- template "llms_print_section" (dict "section" $s "depth" (add $depth 1)) -}}
-{{- end -}}
-{{- end -}}
-{{- end -}}
-
-{{- /* Main template starts here */ -}}
-# {{ site.Title }}
-
-{{- /* Pages not in any section */ -}}
-{{- $orphans := where site.RegularPages "Section" "" -}}
-{{ if gt (len $orphans) 0 }}
-
-{{- range $p := $orphans -}}
-  {{ if and (not $p.Params.searchHidden) (ne $p.Layout `archives`) (ne $p.Layout `search`) (not $p.IsHome) }}
-- [{{ $p.Title }}]({{ $p.Permalink }})
-  {{- end -}}
-{{- end -}}
-
-{{- end -}}
-
-{{- range site.Sections -}}
-{{- template "llms_print_section" (dict "section" . "depth" 1) -}}
+{{ strings.Repeat (add $depth 1) "#" }} {{ $section.Title }}
+{{- range where (where $section.RegularPages "Params.robotsNoIndex" "ne" true) "Layout" "not in" (slice "archives" "search") }}
+- [{{ .Title }}]({{ .Permalink }}){{ with .Description }}: {{ . | plainify | chomp }}{{ end }}
 {{- end }}
+{{- range $section.Sections }}
+{{- template "llms_print_section" (dict "section" . "depth" (add $depth 1)) }}
+{{- end }}
+{{- end }}
+{{- end -}}
+
+# {{ .Site.Title }}
+
+{{ with .Site.Params.description -}}
+> {{ . }}
+{{- end }}
+
+{{- with .Translations }}
+
+## Languages
+{{- range . }}
+{{- $lang := .Language.Label | default .Lang }}
+{{- with .OutputFormats.Get "LLMS" }}
+- [{{ $lang }}]({{ .Permalink }})
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{- $orphans := where (where (where .Site.RegularPages "Section" "") "Params.robotsNoIndex" "ne" true) "Layout" "not in" (slice "archives" "search") }}
+{{- if $orphans }}
+
+## Pages
+{{- range $orphans }}
+- [{{ .Title }}]({{ .Permalink }}){{ with .Description }}: {{ . | plainify | chomp }}{{ end }}
+{{- end }}
+{{- end }}
+
+{{- range .Site.Sections }}
+{{- template "llms_print_section" (dict "section" . "depth" 1) }}
+{{- end }}
+
+---
+Generated on {{ now.UTC.Format "2006-01-02 15:04:05" }} UTC
+Site: {{ .Site.Home.Permalink }}

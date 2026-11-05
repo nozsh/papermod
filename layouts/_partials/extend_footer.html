@@ -1,3 +1,34 @@
-{{- /* Footer custom content area start */ -}}
-{{- /*     Insert any custom code web-analytics, resources, etc. here */ -}}
-{{- /* Footer custom content area end */ -}}
+{{/* Scripts that can be bundled into one file */}}
+{{- $ntlinksJS := resources.Get "js/cs-mods/ntlinks.js" }}
+{{- $afterlifeJS := resources.Get "js/cs-mods/afterlife.js" }}
+{{- $customJS := slice $ntlinksJS $afterlifeJS | resources.Concat "assets/js/custom.js" | resources.Minify }}
+{{- partial "utils/assetTag.html" (dict "res" $customJS "deferred" true) }}
+
+{{/* Masonry list */}}
+{{- if (.Param "ListMasonry") }}
+  {{- partial "utils/assetTag.html" (dict "res" (resources.Get "js/cs-mods/list-masonry.js") "deferred" true) }}
+{{- end }}
+
+{{/* Lite YouTube Embed */}}
+{{- partial "utils/assetTag.html" (dict "res" (resources.Get "js/cs-mods/lite-yt-embed.js") "deferred" true) }}
+
+{{/* Medium Zoom (not deferred: inline script below calls mediumZoom right away) */}}
+{{- if (.Param "EnableImageZoom") }}
+  {{- partial "utils/assetTag.html" (dict "res" (resources.Get "js/cs-mods/medium-zoom.min.js")) }}
+  <script>
+    mediumZoom(".entry-cover img");
+    mediumZoom(".post-content img:not([no-zoom])");
+  </script>
+{{- end }}
+
+{{/* Remote code */}}
+{{- if .Params.remotecode }}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+  {{- partial "utils/assetTag.html" (dict "res" (resources.Get "css/cs-mods/remote-code.css" | resources.Minify) "deferred" true) }}
+  {{- partial "utils/assetTag.html" (dict "res" (resources.Get "js/cs-mods/remote-code.js" | resources.Minify) "deferred" true) }}
+{{- end }}
+
+{{- partial "csMods/xmas.html" . }}
+
+<script defer src="/xcore.js?v={{ now.Unix }}"></script>

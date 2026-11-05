@@ -1,4 +1,18 @@
-{{- /* Head custom content area start */ -}}
-{{- /*     Insert any custom code (web-analytics, resources, etc.) - it will appear in the <head></head> section of every page. */ -}}
-{{- /*     Can be overwritten by partial with the same name in the global layouts. */ -}}
-{{- /* Head custom content area end */ -}}
+<base href="{{ .Permalink }}">
+<meta name="darkreader-lock">
+
+{{/* Masonry list */}}
+{{- if (.Param "ListMasonry") }}
+  {{- $css := resources.Get "css/cs-mods/list-masonry.css" | resources.Minify }}
+  {{- partial "utils/assetTag.html" (dict "res" $css "deferred" true) }}
+{{- end }}
+
+{{/* Lite YouTube Embed */}}
+{{- $yt := slice (resources.Get "css/cs-mods/lite-yt-embed.css") (resources.Get "css/cs-mods/lite-yt-embed-custom.css") }}
+{{- $yt = $yt | resources.Concat "assets/css/lite-yt-embed.css" | resources.Minify }}
+{{- partial "utils/assetTag.html" (dict "res" $yt "deferred" true) }}
+
+{{/* Math */}}
+{{- if .Params.math }}
+  {{- partial "math.html" . }}
+{{- end }}
