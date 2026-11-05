@@ -7,11 +7,6 @@
   {{- partial "utils/assetTag.html" (dict "res" $css "deferred" true) }}
 {{- end }}
 
-{{/* Lite YouTube Embed */}}
-{{- $yt := slice (resources.Get "css/cs-mods/lite-yt-embed.css") (resources.Get "css/cs-mods/lite-yt-embed-custom.css") }}
-{{- $yt = $yt | resources.Concat "assets/css/lite-yt-embed.css" | resources.Minify }}
-{{- partial "utils/assetTag.html" (dict "res" $yt "deferred" true) }}
-
 {{/* Afterlife */}}
 <script>
   (function () {

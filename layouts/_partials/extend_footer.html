@@ -9,7 +9,7 @@
 {{- end }}
 
 {{/* Lite YouTube Embed */}}
-{{- partial "utils/assetTag.html" (dict "res" (resources.Get "js/cs-mods/lite-yt-embed.js") "deferred" true) }}
+{{- partial "utils/assetTag.html" (dict "res" (resources.Get "js/cs-mods/lite-youtube.min.js") "deferred" true "module" true) }}
 
 {{/* Medium Zoom (not deferred: inline script below calls mediumZoom right away) */}}
 {{- if (.Param "EnableImageZoom") }}

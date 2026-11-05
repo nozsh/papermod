@@ -1,0 +1,5 @@
+lite-youtube {
+  background-color: var(--theme);
+  margin-bottom: var(--content-gap);
+  border-radius: var(--radius);
+}
