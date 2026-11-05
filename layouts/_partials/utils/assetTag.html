@@ -21,7 +21,7 @@
 <link rel="stylesheet" crossorigin="anonymous" href="{{ $r.RelPermalink }}"{{ $integrity | safeHTMLAttr }}>
   {{- end -}}
 {{- else if eq $type "javascript" -}}
-<script {{ if .deferred }}defer {{ end }}crossorigin="anonymous" src="{{ $r.RelPermalink }}"{{ $integrity | safeHTMLAttr }}></script>
+<script {{ if .module}}type="module" {{ end }}{{ if .deferred }}defer {{ end }}crossorigin="anonymous" src="{{ $r.RelPermalink }}"{{ $integrity | safeHTMLAttr }}></script>
 {{- else -}}
   {{- errorf "assetTag: unsupported media type %q for %s" $type $r.Name -}}
 {{- end }}
