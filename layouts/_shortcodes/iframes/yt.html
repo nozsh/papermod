@@ -1,1 +1,14 @@
-<lite-youtube videoid="{{ .Get 0 }}" title="{{ .Get 1 }}" params="{{ .Get 2 }}" playlabel="Play"></lite-youtube>
+{{ $id := .Get 0 }}
+{{ $title := .Get 1 }}
+{{ $params := .Get 2 }}
+<lite-youtube videoid="{{ $id }}" videotitle="{{ $title }}" params="{{ $params }}">
+  <div slot="image" class="lyt-poster">
+    <img src="https://i.ytimg.com/vi/{{ $id }}/maxresdefault.jpg" alt="" loading="lazy" decoding="async" no-zoom>
+    {{/*
+    <img src="https://i.ytimg.com/vi/{{ $id }}/maxresdefault.jpg" alt="" loading="lazy" decoding="async" no-zoom
+      onload="if(this.naturalWidth<=120){this.onload=null;this.src='https://i.ytimg.com/vi/{{ $id }}/hqdefault.jpg'}"
+      onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/{{ $id }}/hqdefault.jpg'">
+    */}}
+    <span class="lyt-title">{{ $title }}</span>
+  </div>
+</lite-youtube>
