@@ -1,6 +1,7 @@
 .references-card {
   padding: 0;
   width: 100%;
+  margin-bottom: var(--content-gap);
 }
 
 .references-container {
