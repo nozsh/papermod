@@ -1,0 +1,56 @@
+.steps {
+  --steps-line: var(--accent);
+  --steps-bg: var(--theme);
+  --steps-circle: var(--code-bg);
+  --steps-num: var(--accent);
+
+  --step-size: 2.5rem;
+  --step-gap: 4px;
+  --step-lh: 2rem;
+  --step-pad: 1.5rem;
+  --step-line-w: 1px;
+
+  counter-reset: step;
+  margin-inline-start: 1rem;
+  margin-bottom: var(--content-gap);
+  padding-inline-start: var(--step-pad);
+  border-inline-start: var(--step-line-w) solid var(--steps-line);
+}
+
+.step { counter-increment: step; }
+
+.step-title {
+  position: relative;
+  margin-block: 2rem 1rem;
+  font-size: calc(var(--font-size) * 1.2);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: var(--step-lh);
+}
+
+.step:first-child .step-title { margin-block-start: 0; }
+
+.step-title::before {
+  content: counter(step);
+  position: absolute;
+  inset-inline-start: calc(-1 * (var(--step-pad) + var(--step-line-w) / 2 + var(--step-size) / 2));
+  inset-block-start: calc((var(--step-lh) - var(--step-size)) / 2);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--step-size);
+  height: var(--step-size);
+  border: var(--step-gap) solid var(--steps-bg);
+  border-radius: 50%;
+
+  background: var(--steps-circle);
+  color: var(--steps-num);
+  line-height: 1;
+  font-size: calc(var(--font-size) * .8);
+  letter-spacing: 0;
+}
+
+.step-body > :first-child { margin-block-start: 0; }
+.step-body > :last-child  { margin-block-end: 0; }

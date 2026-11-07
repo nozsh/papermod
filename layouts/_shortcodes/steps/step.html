@@ -1,0 +1,9 @@
+{{- $title := .Get "title" | default (.Get 0) -}}
+<div class="step" role="listitem">
+  <div class="step-title">{{ $title | markdownify }}</div>
+  <div class="step-body">
+
+{{ .Inner }}
+
+  </div>
+</div>
