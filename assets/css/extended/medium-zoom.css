@@ -7,15 +7,15 @@
 
 .medium-zoom-image--opened {
   z-index: 3;
-  border-radius: var(--radius);
+  /*border-radius: var(--radius);*/
   /* border: var(--border-uni); */
 }
 
-img.medium-zoom-image--opened[loading="eager"],
+/*img.medium-zoom-image--opened[loading="eager"],
 img.gallery-image.medium-zoom-image--opened {
   border-radius: 0;
   border: none;
-}
+}*/
 
 .medium-zoom-image {
   object-fit: contain;
