@@ -1,10 +1,17 @@
 lite-youtube {
+  display: block;
+  position: relative;
+  aspect-ratio: 16 / 9;
   box-sizing: content-box;
   width: auto;
   margin-bottom: var(--content-gap);
   border: var(--border-uni);
   border-radius: var(--radius);
   --lite-youtube-frame-shadow-visible: no;
+}
+
+lite-youtube:not(:defined) {
+  overflow: hidden;
 }
 
 lite-youtube .lyt-poster {
