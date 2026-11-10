@@ -12,15 +12,10 @@ html {
   }
 }
 
-h2:target,
-h3:target,
-h4:target,
-h5:target,
-h6:target {
-  animation: highlight 1.5s ease-out;
+:where(h2, h3, h4, h5, h6, span[data-anchor]):target {
+  animation: highlight 2s ease-out;
 }
 
 @keyframes highlight {
-  0% { color: var(--accent); }
-  100% { color: var(--primary); }
+  0%, 30% { color: var(--accent); }
 }
