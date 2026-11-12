@@ -6,90 +6,76 @@
   --small: calc(var(--font-size) - 0.125rem);
 }
 
-/* --- */
-
 .callout-inline {
   position: relative;
-  /* float: right; */
   float: left;
-  /* clear: right; */
   clear: left;
   width: var(--marginparwidth);
-  /* hyphens: auto; */
 }
 
 .callout-inline img {
-  /*width: 100%;*/
   max-width: 100%;
   height: auto;
   border: none;
 }
 
-/* --- */
-
-/* .callout-inline-ctrl:checked + label + .callout-inline {
-  --anm: expand 99ms forwards;
-  --tso: top;
-} */
-
 .callout-inline-ctrl + label::before {
   position: relative;
-  top: 0.23em;
-  /* left: 0.43em; */
+  top: 0;
   right: 0.43em;
   align-self: center;
-  /* margin-left: auto; */
   margin-right: auto;
-  background: linear-gradient(to top, transparent 49%, var(--accent) 0%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--accent);
   font: 8pt "base-ui";
-  content: "\e913";
+  content: "\e904";
+  content: "\e904" / "";
+  transform: rotate(180deg);
 }
 
 .callout-inline-ctrl:checked + label::before {
-  background: unset;
-  top: 0;
-  color: var(--accent);
+  content: "\e913";
+  content: "\e913" / "";
+  transform: none;
 }
 
-/* --- */
-
 .callout-inline {
-  /* left: calc(var(--marginparwidth) + var(--indent)); */
   left: calc(-1 * (var(--marginparwidth) + var(--indent)));
-  /* margin-right: 0; */
   margin-left: 0;
-  /* margin-left: calc(var(--marginparwidth) * -1); */
   margin-right: calc(var(--marginparwidth) * -1);
   font-size: var(--small);
   font-style: italic;
 }
 
-/* .callout-inline.abs {
-  left: unset;
-  padding-left: var(--indent);
-} */
+.callout-inline-ctrl {
+  display: none;
+}
 
-.callout-inline-ctrl,
 .callout-inline-ctrl + label::before {
   position: absolute;
   top: -100vh;
 }
 
-/* @media screen and (max-width: 1024px) {
-  .callout-inline.abs {
-    left: -1rem;
-    padding-left: unset;
-  }
-} */
-
-/* @media screen and (max-width: 640px) { */
 @media screen and (max-width: 1350px) {
+  .callout-inline-ctrl {
+    display: block;
+    position: absolute;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    opacity: 0;
+  }
+
+  .callout-inline-ctrl:focus-visible + label {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
   .callout-inline-ctrl + label {
     display: inline-flex;
     padding: 2pt;
+    align-items: center;
+    vertical-align: middle;
   }
 
   .callout-inline-ctrl + label::before {
@@ -113,7 +99,6 @@
     position: unset;
     margin: 0 var(--indent) 1ex;
     padding-right: var(--indent);
-    /*width: 100%;*/
     width: auto;
   }
 }
