@@ -2,7 +2,8 @@
 <meta name="darkreader-lock">
 
 {{/* Masonry list */}}
-{{- if (.Param "ListMasonry") }}
+
+{{- if and (.Param "ListMasonry") (not .IsPage) }}
   {{- $masonryCSS := resources.Get "css/cs-mods/list-masonry.css" | resources.Minify }}
   {{- partial "utils/assetTag.html" (dict "res" $masonryCSS "deferred" true) }}
   <noscript><style>main.main { opacity: 1 !important; }</style></noscript>

@@ -4,12 +4,14 @@
 {{- partial "utils/assetTag.html" (dict "res" $customJS "deferred" true) }}
 
 {{/* Masonry list */}}
-{{- if (.Param "ListMasonry") }}
+{{- if and (.Param "ListMasonry") (not .IsPage) }}
   {{- partial "utils/assetTag.html" (dict "res" (resources.Get "js/cs-mods/list-masonry.js") "deferred" true) }}
 {{- end }}
 
 {{/* Lite YouTube Embed */}}
-{{- partial "utils/assetTag.html" (dict "res" (resources.Get "js/cs-mods/lite-youtube.min.js") "deferred" true "module" true) }}
+{{- if and .IsPage (.HasShortcode "iframes/yt") }}
+  {{- partial "utils/assetTag.html" (dict "res" (resources.Get "js/cs-mods/lite-youtube.min.js") "deferred" true "module" true) }}
+{{- end }}
 
 {{/* Medium Zoom (not deferred: inline script below calls mediumZoom right away) */}}
 {{- if (.Param "EnableImageZoom") }}
