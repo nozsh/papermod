@@ -85,4 +85,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.addEventListener("resize", handleResize);
   }
+
+  mainElement?.classList.add("is-reordered");
 });

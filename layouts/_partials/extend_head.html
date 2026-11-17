@@ -3,8 +3,9 @@
 
 {{/* Masonry list */}}
 {{- if (.Param "ListMasonry") }}
-  {{- $css := resources.Get "css/cs-mods/list-masonry.css" | resources.Minify }}
-  {{- partial "utils/assetTag.html" (dict "res" $css "deferred" true) }}
+  {{- $masonryCSS := resources.Get "css/cs-mods/list-masonry.css" | resources.Minify }}
+  {{- partial "utils/assetTag.html" (dict "res" $masonryCSS "deferred" true) }}
+  <noscript><style>main.main { opacity: 1 !important; }</style></noscript>
 {{- end }}
 
 {{/* Afterlife */}}

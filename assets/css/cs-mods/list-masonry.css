@@ -7,6 +7,15 @@ main.main > .first-entry {
     column-count: 2;
   }
 
+  main.main:has(> article.first-entry, > article.post-entry):not(.is-reordered) {
+    opacity: 0;
+  }
+
+  main.main.is-reordered {
+    opacity: 1;
+    transition: opacity 0.25s ease-out;
+  }
+
   main.main:has(> article.first-entry:only-of-type),
   main.main:has(> article.post-entry:only-of-type) {
     column-count: unset;
