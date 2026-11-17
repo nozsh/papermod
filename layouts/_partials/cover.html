@@ -47,7 +47,9 @@
         {{- /* For absolute urls and external links, no img processing here */}}
         {{/* CUSTOM */}}
         {{- $src := .Params.cover.image -}}
-        <img loading="{{ $loading }}" src='{{ partial "utils/getAsset" (dict "src" $src "page" .Page) }}' alt="{{ $alt }}" {{- if .Params.Cover.Width -}}width="{{ .Params.Cover.Width }}px"{{- end -}} {{- if .Params.Cover.Height -}}height="{{ .Params.Cover.Height }}px"{{- end -}}>
+        {{- $first := $.IsSingle -}}
+        {{- if not $.IsSingle }}{{ $first = .Page.Eq (index (where page.Paginator.Pages "Params.cover.image" "ne" nil) 0) }}{{ end -}}
+        <img loading="{{ cond $first "eager" $loading }}" {{ if $first }}fetchpriority="high"{{ end }} src='{{ partial "utils/getAsset" (dict "src" $src "page" .Page) }}' alt="{{ $alt }}" {{- if .Params.Cover.Width -}}width="{{ .Params.Cover.Width }}px"{{- end -}} {{- if .Params.Cover.Height -}}height="{{ .Params.Cover.Height }}px"{{- end -}}>
         {{/* CUSTOM */}}
     {{- end }}
 
