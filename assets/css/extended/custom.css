@@ -129,6 +129,8 @@ body {
 
 .entry-cover img {
   pointer-events: inherit;
+  color: transparent;
+  animation: fade-in 1s ease-in forwards, delay-text-reveal 0s 2s forwards;
 }
 
 .entry-footer,
@@ -202,4 +204,15 @@ mark {
 
 .logo a img, .profile img {
   border-radius: var(--radius);
+}
+
+/*------------*/
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes delay-text-reveal {
+  to { color: inherit; }
 }
