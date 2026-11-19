@@ -14,7 +14,7 @@
 {{- end }}
 
 {{/* Medium Zoom (not deferred: inline script below calls mediumZoom right away) */}}
-{{- if (.Param "EnableImageZoom") }}
+{{- if and .IsPage (.Param "EnableImageZoom") }}
   {{- partial "utils/assetTag.html" (dict "res" (resources.Get "js/cs-mods/medium-zoom.min.js")) }}
   <script>
     mediumZoom(".entry-cover img");
@@ -23,9 +23,9 @@
 {{- end }}
 
 {{/* Remote code */}}
-{{- if .Params.remotecode }}
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+{{- if and .IsPage (.HasShortcode "remote-code") }}
+  <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/styles/github-dark.min.css" integrity="sha512-rO+olRTkcf304DQBxSWxln8JXCzTHlKnIdnMUwYvQa9/Jd4cQaNkItIUj6Z4nvW1dqK0SKXLbn9h4KwZTNtAyw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/highlight.min.js" integrity="sha512-gzqHAlI1hVdzJ4wiQj/MkppDr6zgEdCoBsrXKRidcaZsSPvNQ3Fy5p7PpMt/8mltxTxMHj1Ur5NWbJdqIfpxgA==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
   {{- partial "utils/assetTag.html" (dict "res" (resources.Get "css/cs-mods/remote-code.css" | resources.Minify) "deferred" true) }}
   {{- partial "utils/assetTag.html" (dict "res" (resources.Get "js/cs-mods/remote-code.js" | resources.Minify) "deferred" true) }}
 {{- end }}
