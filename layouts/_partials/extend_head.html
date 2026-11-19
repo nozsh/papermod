@@ -1,8 +1,13 @@
 {{/* <base href="{{ .Permalink }}"> */}}
-<meta name="darkreader-lock">
+
+{{/* Shortcodes */}}
+{{- if .IsPage }}
+  {{- $shortcodesCSS := resources.Match "css/shortcodes/*.css" }}
+  {{- $shortcodesCSS := $shortcodesCSS | resources.Concat "assets/css/shortcodes.css" | resources.Minify }}
+  {{- partial "utils/assetTag.html" (dict "res" $shortcodesCSS "deferred" true) }}
+{{- end }}
 
 {{/* Masonry list */}}
-
 {{- if and (.Param "ListMasonry") (not .IsPage) }}
   {{- $masonryCSS := resources.Get "css/cs-mods/list-masonry.css" | resources.Minify }}
   {{- partial "utils/assetTag.html" (dict "res" $masonryCSS "deferred" true) }}
