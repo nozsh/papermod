@@ -1,5 +1,11 @@
 {{/* <base href="{{ .Permalink }}"> */}}
 
+{{/* BASE-UI FONT */}}
+{{- if and .IsPage (or (.HasShortcode "callout/inline")) }}
+  {{- $baseui := resources.Get "fonts/base-ui.woff2" | fingerprint }}
+  <style>@font-face{font-family:base-ui;font-weight:100 900;font-style:normal italic;font-display:block;src:url({{ $baseui.RelPermalink }}) format("woff2")}</style>
+{{- end }}
+
 {{/* Shortcodes */}}
 {{- if .IsPage }}
   {{- $shortcodesCSS := resources.Match "css/shortcodes/*.css" }}
